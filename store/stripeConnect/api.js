@@ -12,7 +12,7 @@ function stripeconnect_get_accounts_read(payload) {
   return stripeConnect.get(`/accounts`, { params: { limit: payload.limit } })
 }
 function stripeconnect_post_accounts_create(payload) {
-  return stripeConnect.post(`/accounts`, payload.data)
+  return stripeConnect.post(`/accounts`, payload)
 }
 export const apiService = {
   stripeconnect_get_accounts_read,

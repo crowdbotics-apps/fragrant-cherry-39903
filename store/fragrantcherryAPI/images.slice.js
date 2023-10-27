@@ -21,44 +21,53 @@ const imagesSlice = createSlice({
   name: "images",
   initialState,
   reducers: {},
-  extraReducers: {
-    [modules_camera_photos_user_list.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [modules_camera_photos_user_list.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities = action.payload
-        state.api.loading = "idle"
-      }
-    },
-    [modules_camera_photos_user_list.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    },
-    [modules_camera_photos_user_retrieve.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [modules_camera_photos_user_retrieve.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities = [
-          ...state.entities.filter(record => record.id !== action.payload.id),
-          action.payload
-        ]
-        state.api.loading = "idle"
-      }
-    },
-    [modules_camera_photos_user_retrieve.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(modules_camera_photos_user_list.pending, (state, action) => {
+        if (state.api.loading === "idle") {
+          state.api.loading = "pending"
+        }
+      })
+      .addCase(modules_camera_photos_user_list.fulfilled, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.entities = action.payload
+          state.api.loading = "idle"
+        }
+      })
+      .addCase(modules_camera_photos_user_list.rejected, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.api.error = action.error
+          state.api.loading = "idle"
+        }
+      })
+      .addCase(modules_camera_photos_user_retrieve.pending, (state, action) => {
+        if (state.api.loading === "idle") {
+          state.api.loading = "pending"
+        }
+      })
+      .addCase(
+        modules_camera_photos_user_retrieve.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = [
+              ...state.entities.filter(
+                record => record.id !== action.payload.id
+              ),
+              action.payload
+            ]
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        modules_camera_photos_user_retrieve.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

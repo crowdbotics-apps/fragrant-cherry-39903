@@ -4,6 +4,6 @@ const signup = axios.create({
   headers: { Accept: "application/json", "Content-Type": "application/json" }
 })
 function signup_post_api_v1_signup_read(payload) {
-  return signup.post(`/api/v1/signup`, payload.data)
+  return signup.post(`/api/v1/signup`, payload)
 }
 export const apiService = { signup_post_api_v1_signup_read }

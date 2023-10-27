@@ -14,33 +14,34 @@ const mapsdirectionsapi_response_get_GetMapsDirectionsSlice = createSlice({
   name: "mapsdirectionsapi_response_get_GetMapsDirections",
   initialState,
   reducers: {},
-  extraReducers: {
-    [mapsdirectionsapi_get_maps_api_directions_json_list.pending]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [mapsdirectionsapi_get_maps_api_directions_json_list.fulfilled]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.entities = action.payload
-        state.api.loading = "idle"
-      }
-    },
-    [mapsdirectionsapi_get_maps_api_directions_json_list.rejected]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        mapsdirectionsapi_get_maps_api_directions_json_list.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        mapsdirectionsapi_get_maps_api_directions_json_list.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = action.payload
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        mapsdirectionsapi_get_maps_api_directions_json_list.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

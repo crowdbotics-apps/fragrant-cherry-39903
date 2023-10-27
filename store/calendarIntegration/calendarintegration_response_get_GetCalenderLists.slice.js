@@ -14,33 +14,34 @@ const calendarintegration_response_get_GetCalenderListsSlice = createSlice({
   name: "calendarintegration_response_get_GetCalenderLists",
   initialState,
   reducers: {},
-  extraReducers: {
-    [calendarintegration_get_users_me_calendarList_list.pending]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [calendarintegration_get_users_me_calendarList_list.fulfilled]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.entities = action.payload
-        state.api.loading = "idle"
-      }
-    },
-    [calendarintegration_get_users_me_calendarList_list.rejected]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        calendarintegration_get_users_me_calendarList_list.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        calendarintegration_get_users_me_calendarList_list.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = action.payload
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        calendarintegration_get_users_me_calendarList_list.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

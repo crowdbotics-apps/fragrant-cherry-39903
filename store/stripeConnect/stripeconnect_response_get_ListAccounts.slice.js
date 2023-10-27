@@ -12,27 +12,28 @@ const stripeconnect_response_get_ListAccountsSlice = createSlice({
   name: "stripeconnect_response_get_ListAccounts",
   initialState,
   reducers: {},
-  extraReducers: {
-    [stripeconnect_get_accounts_read.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [stripeconnect_get_accounts_read.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities = [
-          ...state.entities.filter(record => record.id !== action.payload.id),
-          action.payload
-        ]
-        state.api.loading = "idle"
-      }
-    },
-    [stripeconnect_get_accounts_read.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(stripeconnect_get_accounts_read.pending, (state, action) => {
+        if (state.api.loading === "idle") {
+          state.api.loading = "pending"
+        }
+      })
+      .addCase(stripeconnect_get_accounts_read.fulfilled, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.entities = [
+            ...state.entities.filter(record => record.id !== action.payload.id),
+            action.payload
+          ]
+          state.api.loading = "idle"
+        }
+      })
+      .addCase(stripeconnect_get_accounts_read.rejected, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.api.error = action.error
+          state.api.loading = "idle"
+        }
+      })
   }
 })
 export default {

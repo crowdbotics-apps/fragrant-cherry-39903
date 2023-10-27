@@ -12,24 +12,25 @@ const signup_response_post_SignupsSlice = createSlice({
   name: "signup_response_post_Signups",
   initialState,
   reducers: {},
-  extraReducers: {
-    [signup_post_api_v1_signup_read.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [signup_post_api_v1_signup_read.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities.push(action.payload)
-        state.api.loading = "idle"
-      }
-    },
-    [signup_post_api_v1_signup_read.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(signup_post_api_v1_signup_read.pending, (state, action) => {
+        if (state.api.loading === "idle") {
+          state.api.loading = "pending"
+        }
+      })
+      .addCase(signup_post_api_v1_signup_read.fulfilled, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.entities.push(action.payload)
+          state.api.loading = "idle"
+        }
+      })
+      .addCase(signup_post_api_v1_signup_read.rejected, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.api.error = action.error
+          state.api.loading = "idle"
+        }
+      })
   }
 })
 export default {

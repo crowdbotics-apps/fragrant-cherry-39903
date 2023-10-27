@@ -14,33 +14,34 @@ const geolocationapi_response_post_NewdatacallsSlice = createSlice({
   name: "geolocationapi_response_post_Newdatacalls",
   initialState,
   reducers: {},
-  extraReducers: {
-    [geolocationapi_post_geolocation_v1_geolocate_create.pending]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [geolocationapi_post_geolocation_v1_geolocate_create.fulfilled]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.entities.push(action.payload)
-        state.api.loading = "idle"
-      }
-    },
-    [geolocationapi_post_geolocation_v1_geolocate_create.rejected]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        geolocationapi_post_geolocation_v1_geolocate_create.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        geolocationapi_post_geolocation_v1_geolocate_create.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities.push(action.payload)
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        geolocationapi_post_geolocation_v1_geolocate_create.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

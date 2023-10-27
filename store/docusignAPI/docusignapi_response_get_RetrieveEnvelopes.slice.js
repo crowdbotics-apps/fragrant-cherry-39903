@@ -14,36 +14,39 @@ const docusignapi_response_get_RetrieveEnvelopesSlice = createSlice({
   name: "docusignapi_response_get_RetrieveEnvelopes",
   initialState,
   reducers: {},
-  extraReducers: {
-    [docusignapi_get_modules_docusign_envelope_retrieve_read.pending]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [docusignapi_get_modules_docusign_envelope_retrieve_read.fulfilled]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.entities = [
-          ...state.entities.filter(record => record.id !== action.payload.id),
-          action.payload
-        ]
-        state.api.loading = "idle"
-      }
-    },
-    [docusignapi_get_modules_docusign_envelope_retrieve_read.rejected]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        docusignapi_get_modules_docusign_envelope_retrieve_read.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        docusignapi_get_modules_docusign_envelope_retrieve_read.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = [
+              ...state.entities.filter(
+                record => record.id !== action.payload.id
+              ),
+              action.payload
+            ]
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        docusignapi_get_modules_docusign_envelope_retrieve_read.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

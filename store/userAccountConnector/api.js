@@ -4,6 +4,6 @@ const userAccountConnector = axios.create({
   headers: { Accept: "application/json", "Content-Type": "application/json" }
 })
 function useraccountconnector_post_registration_create(payload) {
-  return userAccountConnector.post(`/registration/`, payload.data)
+  return userAccountConnector.post(`/registration/`, payload)
 }
 export const apiService = { useraccountconnector_post_registration_create }

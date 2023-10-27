@@ -14,27 +14,39 @@ const signeasyintegration_response_get_ListEnvelopesSlice = createSlice({
   name: "signeasyintegration_response_get_ListEnvelopes",
   initialState,
   reducers: {},
-  extraReducers: {
-    [signeasyintegration_get_rs_envelope_read.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [signeasyintegration_get_rs_envelope_read.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities = [
-          ...state.entities.filter(record => record.id !== action.payload.id),
-          action.payload
-        ]
-        state.api.loading = "idle"
-      }
-    },
-    [signeasyintegration_get_rs_envelope_read.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        signeasyintegration_get_rs_envelope_read.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        signeasyintegration_get_rs_envelope_read.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = [
+              ...state.entities.filter(
+                record => record.id !== action.payload.id
+              ),
+              action.payload
+            ]
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        signeasyintegration_get_rs_envelope_read.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

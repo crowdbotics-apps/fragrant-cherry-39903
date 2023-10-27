@@ -9,7 +9,7 @@ function jotformsintegration_get_reports_read(payload) {
   })
 }
 function jotformsintegration_post_register_create(payload) {
-  return jotformsIntegration.post(`/register`, payload.data)
+  return jotformsIntegration.post(`/register`, payload)
 }
 export const apiService = {
   jotformsintegration_get_reports_read,

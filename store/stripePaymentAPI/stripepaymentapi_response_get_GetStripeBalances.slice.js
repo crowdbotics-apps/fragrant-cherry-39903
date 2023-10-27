@@ -14,24 +14,34 @@ const stripepaymentapi_response_get_GetStripeBalancesSlice = createSlice({
   name: "stripepaymentapi_response_get_GetStripeBalances",
   initialState,
   reducers: {},
-  extraReducers: {
-    [stripepaymentapi_get_v1_balance_list.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [stripepaymentapi_get_v1_balance_list.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities = action.payload
-        state.api.loading = "idle"
-      }
-    },
-    [stripepaymentapi_get_v1_balance_list.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        stripepaymentapi_get_v1_balance_list.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        stripepaymentapi_get_v1_balance_list.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities = action.payload
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        stripepaymentapi_get_v1_balance_list.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

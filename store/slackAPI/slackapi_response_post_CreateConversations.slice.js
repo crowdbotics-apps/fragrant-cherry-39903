@@ -14,30 +14,34 @@ const slackapi_response_post_CreateConversationsSlice = createSlice({
   name: "slackapi_response_post_CreateConversations",
   initialState,
   reducers: {},
-  extraReducers: {
-    [slackapi_post_api_conversationscreate_create.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [slackapi_post_api_conversationscreate_create.fulfilled]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.entities.push(action.payload)
-        state.api.loading = "idle"
-      }
-    },
-    [slackapi_post_api_conversationscreate_create.rejected]: (
-      state,
-      action
-    ) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(
+        slackapi_post_api_conversationscreate_create.pending,
+        (state, action) => {
+          if (state.api.loading === "idle") {
+            state.api.loading = "pending"
+          }
+        }
+      )
+      .addCase(
+        slackapi_post_api_conversationscreate_create.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities.push(action.payload)
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(
+        slackapi_post_api_conversationscreate_create.rejected,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.api.error = action.error
+            state.api.loading = "idle"
+          }
+        }
+      )
   }
 })
 export default {

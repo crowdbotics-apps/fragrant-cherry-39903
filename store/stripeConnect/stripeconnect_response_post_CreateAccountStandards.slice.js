@@ -14,24 +14,28 @@ const stripeconnect_response_post_CreateAccountStandardsSlice = createSlice({
   name: "stripeconnect_response_post_CreateAccountStandards",
   initialState,
   reducers: {},
-  extraReducers: {
-    [stripeconnect_post_accounts_create.pending]: (state, action) => {
-      if (state.api.loading === "idle") {
-        state.api.loading = "pending"
-      }
-    },
-    [stripeconnect_post_accounts_create.fulfilled]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.entities.push(action.payload)
-        state.api.loading = "idle"
-      }
-    },
-    [stripeconnect_post_accounts_create.rejected]: (state, action) => {
-      if (state.api.loading === "pending") {
-        state.api.error = action.error
-        state.api.loading = "idle"
-      }
-    }
+  extraReducers: builder => {
+    builder
+      .addCase(stripeconnect_post_accounts_create.pending, (state, action) => {
+        if (state.api.loading === "idle") {
+          state.api.loading = "pending"
+        }
+      })
+      .addCase(
+        stripeconnect_post_accounts_create.fulfilled,
+        (state, action) => {
+          if (state.api.loading === "pending") {
+            state.entities.push(action.payload)
+            state.api.loading = "idle"
+          }
+        }
+      )
+      .addCase(stripeconnect_post_accounts_create.rejected, (state, action) => {
+        if (state.api.loading === "pending") {
+          state.api.error = action.error
+          state.api.loading = "idle"
+        }
+      })
   }
 })
 export default {

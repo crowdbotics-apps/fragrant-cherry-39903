@@ -15,33 +15,34 @@ const useraccountconnector_response_post_RegistrationDataCallsSlice = createSlic
     name: "useraccountconnector_response_post_RegistrationDataCalls",
     initialState,
     reducers: {},
-    extraReducers: {
-      [useraccountconnector_post_registration_create.pending]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "idle") {
-          state.api.loading = "pending"
-        }
-      },
-      [useraccountconnector_post_registration_create.fulfilled]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.entities.push(action.payload)
-          state.api.loading = "idle"
-        }
-      },
-      [useraccountconnector_post_registration_create.rejected]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.api.error = action.error
-          state.api.loading = "idle"
-        }
-      }
+    extraReducers: builder => {
+      builder
+        .addCase(
+          useraccountconnector_post_registration_create.pending,
+          (state, action) => {
+            if (state.api.loading === "idle") {
+              state.api.loading = "pending"
+            }
+          }
+        )
+        .addCase(
+          useraccountconnector_post_registration_create.fulfilled,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.entities.push(action.payload)
+              state.api.loading = "idle"
+            }
+          }
+        )
+        .addCase(
+          useraccountconnector_post_registration_create.rejected,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.api.error = action.error
+              state.api.loading = "idle"
+            }
+          }
+        )
     }
   }
 )

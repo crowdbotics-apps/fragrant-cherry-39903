@@ -15,35 +15,36 @@ const calendarintegration_response_delete_DeleteCalenderListsSlice = createSlice
     name: "calendarintegration_response_delete_DeleteCalenderLists",
     initialState,
     reducers: {},
-    extraReducers: {
-      [calendarintegration_delete_users_me_calendarList_calender_id_delete.pending]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "idle") {
-          state.api.loading = "pending"
-        }
-      },
-      [calendarintegration_delete_users_me_calendarList_calender_id_delete.fulfilled]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.entities = state.entities.filter(
-            record => record.id !== action.meta.arg?.id
-          )
-          state.api.loading = "idle"
-        }
-      },
-      [calendarintegration_delete_users_me_calendarList_calender_id_delete.rejected]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.api.error = action.error
-          state.api.loading = "idle"
-        }
-      }
+    extraReducers: builder => {
+      builder
+        .addCase(
+          calendarintegration_delete_users_me_calendarList_calender_id_delete.pending,
+          (state, action) => {
+            if (state.api.loading === "idle") {
+              state.api.loading = "pending"
+            }
+          }
+        )
+        .addCase(
+          calendarintegration_delete_users_me_calendarList_calender_id_delete.fulfilled,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.entities = state.entities.filter(
+                record => record.id !== action.meta.arg?.id
+              )
+              state.api.loading = "idle"
+            }
+          }
+        )
+        .addCase(
+          calendarintegration_delete_users_me_calendarList_calender_id_delete.rejected,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.api.error = action.error
+              state.api.loading = "idle"
+            }
+          }
+        )
     }
   }
 )

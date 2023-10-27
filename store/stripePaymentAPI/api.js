@@ -12,7 +12,7 @@ function stripepaymentapi_get_v1_balance_list(payload) {
   return stripePaymentAPI.get(`/v1/balance`)
 }
 function stripepaymentapi_post_v1_payment_intents_create(payload) {
-  return stripePaymentAPI.post(`/v1/payment_intents`, payload.data)
+  return stripePaymentAPI.post(`/v1/payment_intents`, payload)
 }
 export const apiService = {
   stripepaymentapi_get_v1_balance_list,

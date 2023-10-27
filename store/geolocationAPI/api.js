@@ -4,7 +4,7 @@ const geolocationAPI = axios.create({
   headers: { Accept: "application/json", "Content-Type": "application/json" }
 })
 function geolocationapi_post_geolocation_v1_geolocate_create(payload) {
-  return geolocationAPI.post(`/geolocation/v1/geolocate`, payload.data, {
+  return geolocationAPI.post(`/geolocation/v1/geolocate`, payload, {
     params: { key: payload.key }
   })
 }

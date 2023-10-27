@@ -15,36 +15,39 @@ const stripesubscriptions_response_get_GetSubscriptionDetailsSlice = createSlice
     name: "stripesubscriptions_response_get_GetSubscriptionDetails",
     initialState,
     reducers: {},
-    extraReducers: {
-      [stripesubscriptions_get_subscriptions_sub_id_read.pending]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "idle") {
-          state.api.loading = "pending"
-        }
-      },
-      [stripesubscriptions_get_subscriptions_sub_id_read.fulfilled]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.entities = [
-            ...state.entities.filter(record => record.id !== action.payload.id),
-            action.payload
-          ]
-          state.api.loading = "idle"
-        }
-      },
-      [stripesubscriptions_get_subscriptions_sub_id_read.rejected]: (
-        state,
-        action
-      ) => {
-        if (state.api.loading === "pending") {
-          state.api.error = action.error
-          state.api.loading = "idle"
-        }
-      }
+    extraReducers: builder => {
+      builder
+        .addCase(
+          stripesubscriptions_get_subscriptions_sub_id_read.pending,
+          (state, action) => {
+            if (state.api.loading === "idle") {
+              state.api.loading = "pending"
+            }
+          }
+        )
+        .addCase(
+          stripesubscriptions_get_subscriptions_sub_id_read.fulfilled,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.entities = [
+                ...state.entities.filter(
+                  record => record.id !== action.payload.id
+                ),
+                action.payload
+              ]
+              state.api.loading = "idle"
+            }
+          }
+        )
+        .addCase(
+          stripesubscriptions_get_subscriptions_sub_id_read.rejected,
+          (state, action) => {
+            if (state.api.loading === "pending") {
+              state.api.error = action.error
+              state.api.loading = "idle"
+            }
+          }
+        )
     }
   }
 )

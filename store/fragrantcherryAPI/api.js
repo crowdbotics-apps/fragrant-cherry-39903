@@ -9,10 +9,10 @@ function api_docs_schema_retrieve(payload) {
   })
 }
 function api_v1_login_create(payload) {
-  return fragrantcherryAPI.post(`/api/v1/login/`, payload.data)
+  return fragrantcherryAPI.post(`/api/v1/login/`, payload)
 }
 function api_v1_signup_create(payload) {
-  return fragrantcherryAPI.post(`/api/v1/signup/`, payload.data)
+  return fragrantcherryAPI.post(`/api/v1/signup/`, payload)
 }
 function modules_camera_photos_user_list(payload) {
   return fragrantcherryAPI.get(`/modules/camera/photos/user/`)
@@ -24,7 +24,7 @@ function modules_camera_upload_image_create(payload) {
   return fragrantcherryAPI.post(`/modules/camera/upload_image/`)
 }
 function rest_auth_login_create(payload) {
-  return fragrantcherryAPI.post(`/rest-auth/login/`, payload.data)
+  return fragrantcherryAPI.post(`/rest-auth/login/`, payload)
 }
 function rest_auth_logout_retrieve(payload) {
   return fragrantcherryAPI.get(`/rest-auth/logout/`)
@@ -33,34 +33,31 @@ function rest_auth_logout_create(payload) {
   return fragrantcherryAPI.post(`/rest-auth/logout/`)
 }
 function rest_auth_password_change_create(payload) {
-  return fragrantcherryAPI.post(`/rest-auth/password/change/`, payload.data)
+  return fragrantcherryAPI.post(`/rest-auth/password/change/`, payload)
 }
 function rest_auth_password_reset_create(payload) {
-  return fragrantcherryAPI.post(`/rest-auth/password/reset/`, payload.data)
+  return fragrantcherryAPI.post(`/rest-auth/password/reset/`, payload)
 }
 function rest_auth_password_reset_confirm_create(payload) {
-  return fragrantcherryAPI.post(
-    `/rest-auth/password/reset/confirm/`,
-    payload.data
-  )
+  return fragrantcherryAPI.post(`/rest-auth/password/reset/confirm/`, payload)
 }
 function rest_auth_registration_create(payload) {
-  return fragrantcherryAPI.post(`/rest-auth/registration/`, payload.data)
+  return fragrantcherryAPI.post(`/rest-auth/registration/`, payload)
 }
 function rest_auth_registration_verify_email_create(payload) {
   return fragrantcherryAPI.post(
     `/rest-auth/registration/verify-email/`,
-    payload.data
+    payload
   )
 }
 function rest_auth_user_retrieve(payload) {
   return fragrantcherryAPI.get(`/rest-auth/user/`)
 }
 function rest_auth_user_update(payload) {
-  return fragrantcherryAPI.put(`/rest-auth/user/`, payload.data)
+  return fragrantcherryAPI.put(`/rest-auth/user/`, payload)
 }
 function rest_auth_user_partial_update(payload) {
-  return fragrantcherryAPI.patch(`/rest-auth/user/`, payload.data)
+  return fragrantcherryAPI.patch(`/rest-auth/user/`, payload)
 }
 export const apiService = {
   api_docs_schema_retrieve,

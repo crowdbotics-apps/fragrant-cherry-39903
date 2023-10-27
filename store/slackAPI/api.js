@@ -9,10 +9,10 @@ const slackAPI = axios.create({
   }
 })
 function slackapi_post_api_conversationslist_create(payload) {
-  return slackAPI.post(`/api/conversations.list`, payload.data)
+  return slackAPI.post(`/api/conversations.list`, payload)
 }
 function slackapi_post_api_conversationscreate_create(payload) {
-  return slackAPI.post(`/api/conversations.create`, payload.data)
+  return slackAPI.post(`/api/conversations.create`, payload)
 }
 export const apiService = {
   slackapi_post_api_conversationslist_create,

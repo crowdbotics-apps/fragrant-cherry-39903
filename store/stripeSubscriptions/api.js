@@ -9,7 +9,7 @@ const stripeSubscriptions = axios.create({
   }
 })
 function stripesubscriptions_post_subscriptions_create(payload) {
-  return stripeSubscriptions.post(`/subscriptions`, payload.data)
+  return stripeSubscriptions.post(`/subscriptions`, payload)
 }
 function stripesubscriptions_get_subscriptions_sub_id_read(payload) {
   return stripeSubscriptions.get(`/subscriptions/sub_id`)
